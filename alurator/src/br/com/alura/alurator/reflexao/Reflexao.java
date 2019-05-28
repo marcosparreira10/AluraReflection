@@ -15,14 +15,21 @@ public class Reflexao {
     }
 
     public ManipuladorClasse refleteClasse(String fqn) {
-        try {
-            Class<?> classe = Class.forName(fqn);
+    	
+            Class<?> classe = getClasse(fqn);
+            
             return new ManipuladorClasse(classe);
-
-        } catch (ClassNotFoundException | SecurityException ex) {
-            ex.printStackTrace();
-            throw new RuntimeException();
-        }
     }
+
+	public Class<?> getClasse(String fqn) {
+		 try {
+	            Class<?> classe = Class.forName(fqn);
+	            return classe;
+
+	        } catch (ClassNotFoundException e) {
+	            e.printStackTrace();
+	            throw new RuntimeException();
+	        }
+	}
 
 }

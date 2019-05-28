@@ -7,7 +7,6 @@ package br.com.alura.alurator.protocolo;
 
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  *
  * @author marcosparreira
@@ -38,12 +37,13 @@ public class Request {
         
         nomeControle = Character.toUpperCase(controleEMetodo[0].charAt(0))
                 + controleEMetodo[0].substring(1) + "Controller";
+        
         //pegando nome do metodo a ser usado, segunda posicao no arrays
         nomeMetodo = controleEMetodo[1];
         
-        //condicao ternaria se partesURL for mair q 1, quer dizer se for condicao de mair q 1 ele entra no termo de passar mais q 2 paramentros... como e o caso de passar parametros
-        queryParams = partesUrl.length > 1
-                ? new QueryParamsBuilder().withParams(partesUrl[1]).build()
+        //condicao ternaria se partesURL for mair q 1, 
+        queryParams = partesUrl.length > 1 //queryParams manipula String valor mais objeto
+                ? new QueryParamsBuilder().comParametros(partesUrl[1]).build()
                 : new HashMap<String, Object>();
     }
     

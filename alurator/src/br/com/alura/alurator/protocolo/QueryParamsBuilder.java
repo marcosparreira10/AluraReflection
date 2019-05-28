@@ -16,7 +16,7 @@ public class QueryParamsBuilder {
 
     private Map<String, Object> queryParams = new HashMap<>();
 
-    public QueryParamsBuilder withParams(String stringQueryParams) {
+    public QueryParamsBuilder comParametros(String stringQueryParams) {
         String[] stringParams = stringQueryParams.split("&");
 
         for (String stringParam : stringParams) {

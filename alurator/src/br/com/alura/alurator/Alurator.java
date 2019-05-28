@@ -6,8 +6,11 @@
 package br.com.alura.alurator;
 
 import br.com.alura.alurator.conversor.ConversorXML;
+import br.com.alura.alurator.ioc.ContainerIoc;
+import br.com.alura.alurator.reflexao.ManipuladorObjeto;
 import br.com.alura.alurator.reflexao.Reflexao;
 import br.com.alura.alurator.protocolo.Request;
+
 import java.util.Map;
 
 /**
@@ -17,9 +20,11 @@ import java.util.Map;
 public class Alurator {
 
     private String pacoteBase;
+    private ContainerIoc container;
 
     public Alurator(String pacoteBase) {
         this.pacoteBase = pacoteBase;
+        this.container = new ContainerIoc();
     }
 
     public Object executa(String url) {
@@ -29,10 +34,10 @@ public class Alurator {
         String nomeMetodo = request.getNomeMetodo();
         String nomeControle = request.getNomeControle();
         Map<String, Object> params = request.getQueryParams();
-
-        Object retorno = new Reflexao()
-                .refleteClasse(pacoteBase + nomeControle)
-                .criaInstancia()
+        
+        Class<?> classeControle = new Reflexao().getClasse( pacoteBase + nomeControle);
+        Object instanciaControle = container.getInstancia(classeControle);        
+        Object retorno = new ManipuladorObjeto(instanciaControle)
                 .getMetodo(nomeMetodo,params)
                 .invoca();
 
